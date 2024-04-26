@@ -1,7 +1,7 @@
 import { ProfileQuery } from '../graphql/profile-query'
 
 export async function fetchProfileData(username: string) {
-  const req = {
+  const body = {
     query: ProfileQuery,
     variables: { username }
   }
@@ -12,7 +12,7 @@ export async function fetchProfileData(username: string) {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(req)
+      body: JSON.stringify(body)
     })
 
     const data = await res.json()
