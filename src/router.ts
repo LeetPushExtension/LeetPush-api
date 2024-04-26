@@ -1,29 +1,8 @@
 import { Router } from 'express'
 
-import { ProfileQuery } from './graphql/profile-query'
+import { fetchProfileData } from './modules/profile-fetch'
 
 const router = Router()
-
-async function fetchProfileData(username: string) {
-  const req = {
-    query: ProfileQuery,
-    variables: { username }
-  }
-
-  try {
-    const res = await fetch('https://leetcode.com/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(req)
-    })
-
-    return res.json()
-  } catch (e) {
-    console.error(e)
-  }
-}
 
 router.get('/:userId', async (req, res) => {
   const userId = req.params.userId
