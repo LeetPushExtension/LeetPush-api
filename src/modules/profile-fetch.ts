@@ -1,10 +1,16 @@
-import { ProfileQuery } from '../graphql/profile-query'
+import { ProfileQuery } from '../graphql/profile-query';
 
-export async function fetchProfileData(username: string) {
+interface SubmissionStats {
+  difficulty: string;
+  count: number;
+}
+
+
+export async function fetchProfileData(username: string): Promise<{ acSubmissionNum: SubmissionStats[], allQuestionsCount: SubmissionStats[] }> {
   const body = {
     query: ProfileQuery,
     variables: { username }
-  }
+  };
 
   try {
     const res = await fetch('https://leetcode.com/graphql', {
@@ -13,24 +19,20 @@ export async function fetchProfileData(username: string) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(body)
-    })
+    });
 
-    const data = await res.json()
+    const data = await res.json() as { data: { allQuestionsCount: any, matchedUser: { submitStatsGlobal: { acSubmissionNum: any } } } };
 
-    const {
-      data: {
-        allQuestionsCount,
-        matchedUser: {
-          submitStatsGlobal: {
-            acSubmissionNum
-          }
-        }
-      }
-    }: any = data
+    const allQuestionsCount = data?.data?.allQuestionsCount;
+    const acSubmissionNum = data?.data?.matchedUser?.submitStatsGlobal?.acSubmissionNum;
 
-    return { acSubmissionNum, allQuestionsCount }
+    if (!allQuestionsCount || !acSubmissionNum) {
+      throw new Error('Incomplete data received from API');
+    }
+
+    return { acSubmissionNum, allQuestionsCount };
   } catch (e) {
-    console.error(e)
-    throw new Error('An error occurred while fetching user profile data')
+    console.error('Error fetching profile data:', e);
+    throw new Error('An error occurred while fetching user profile data');
   }
 }

@@ -24,10 +24,11 @@ app.get('/', (req, res) => {
   res.json({
     message: 'LeetPush API',
     totalSolvedProblems: '/:userId',
-    dailyProblem: '/daily'
+    dailyProblem: '/daily',
+    last20Submissions: '/submissions/:userId'
   })
 })
 
-app.use('/leetpush-api', router)
+app.use('/api/v1', router)
 
 export default app
