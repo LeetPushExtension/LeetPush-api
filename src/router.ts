@@ -10,9 +10,10 @@ const router = Router();
 router.get('/', async (req, res) => {
   return res.status(200).json({
     message: 'Welcome to LeetPush API',
-    totalSolvedProblems: '/:userId',
-    dailyProblem: '/daily',
-    last20Submissions: '/submissions/:userId'
+    totalSolvedProblems: '/api/v1/:userId',
+    dailyProblem: '/api/v1/daily',
+    last20Submissions: '/api/v1/submissions/:userId',
+    profileCalendar : '/api/v1/userProfileCalendar/:username/:year'
   });
 });
 
