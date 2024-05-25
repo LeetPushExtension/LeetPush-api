@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { fetchProfileData } from './modules/profile-fetch';
 import { fetchDailyProblem } from './modules/dailyProblem-fetch';
 import { fetchLast20Submissions } from './modules/submissions-fetch';
+import { fetchUserProfileCalendar } from './modules/profileCalendar-fetch';
+
 
 const router = Router();
 
@@ -60,5 +62,14 @@ router.get('/submissions/:userId', async (req, res) => {
     return res.status(500).json({ error: `An error occurred while fetching submissions data: ${error.message}` });
   }
 });
-
+router.get('/userProfileCalendar/:username/:year', async (req, res) => {
+  const { username, year } = req.params;
+  
+  try {
+    const userCalendar = await fetchUserProfileCalendar(username, parseInt(year, 10));
+    res.json(userCalendar);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
 export default router;
