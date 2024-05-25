@@ -50,14 +50,6 @@ To install and run the LeetPush API locally, follow these steps:
     - `year`: The year for which the calendar is requested.
   - Response: Returns the user profile calendar data for the specified year.
 
-## Usage Examples
-
-### Retrieving Lyrics for a Song
-- **Endpoint**: `/api/v1/:userId`
-- **Description**: This endpoint retrieves lyrics for a given song title and artist name using the Genius API.
-- **Parameters**:
-  - `title` (required): The title of the song.
-  - `artist` (required): The name of the artist.
 
 ## Feedback
 
