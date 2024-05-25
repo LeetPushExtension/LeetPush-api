@@ -3,7 +3,7 @@ import { Last20SubmissionsQuery } from '../graphql/last20Submissions';
 export async function fetchLast20Submissions(username: string) {
   const body = {
     query: Last20SubmissionsQuery,
-    variables: { username, limit: 20 }
+    variables: { username}
   };
 
   try {
