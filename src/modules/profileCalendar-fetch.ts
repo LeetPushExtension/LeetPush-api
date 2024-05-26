@@ -1,9 +1,10 @@
 import { userProfileCalendarQuery } from '../graphql/profileCalendar';
 
-export async function fetchUserProfileCalendar(username: string, year: number) {
+export async function fetchUserProfileCalendar(username: string) {
+  const date = new Date().getFullYear()
   const body = {
     query: userProfileCalendarQuery,
-    variables: { username, year }
+    variables: { username, date }
   };
 
   const res = await fetch('https://leetcode.com/graphql', {

@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     totalSolvedProblems: '/api/v1/:userId',
     dailyProblem: '/api/v1/daily',
     last20Submissions: '/api/v1/submissions/:userId',
-    profileCalendar : '/api/v1/userProfileCalendar/:username/:year'
+    profileCalendar : '/api/v1/userProfileCalendar/:username'
   });
 });
 
@@ -63,11 +63,11 @@ router.get('/submissions/:userId', async (req, res) => {
     return res.status(500).json({ error: `An error occurred while fetching submissions data: ${error.message}` });
   }
 });
-router.get('/userProfileCalendar/:username/:year', async (req, res) => {
-  const { username, year } = req.params;
-  
+router.get('/userProfileCalendar/:username', async (req, res) => {
+  const { username } = req.params;
+
   try {
-    const userCalendar = await fetchUserProfileCalendar(username, parseInt(year, 10));
+    const userCalendar = await fetchUserProfileCalendar(username);
     res.json(userCalendar);
   } catch (error: any) {
     res.status(500).json({ error: error.message });
