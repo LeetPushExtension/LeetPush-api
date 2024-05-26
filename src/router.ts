@@ -2,15 +2,18 @@ import { Router } from 'express';
 import { fetchProfileData } from './modules/profile-fetch';
 import { fetchDailyProblem } from './modules/dailyProblem-fetch';
 import { fetchLast20Submissions } from './modules/submissions-fetch';
+import { fetchUserProfileCalendar } from './modules/profileCalendar-fetch';
+
 
 const router = Router();
 
 router.get('/', async (req, res) => {
   return res.status(200).json({
     message: 'Welcome to LeetPush API',
-    totalSolvedProblems: '/:userId',
-    dailyProblem: '/daily',
-    last20Submissions: '/submissions/:userId'
+    totalSolvedProblems: '/api/v1/:userId',
+    dailyProblem: '/api/v1/daily',
+    last20Submissions: '/api/v1/submissions/:userId',
+    profileCalendar : '/api/v1/userProfileCalendar/:username'
   });
 });
 
@@ -60,5 +63,14 @@ router.get('/submissions/:userId', async (req, res) => {
     return res.status(500).json({ error: `An error occurred while fetching submissions data: ${error.message}` });
   }
 });
+router.get('/userProfileCalendar/:username', async (req, res) => {
+  const { username } = req.params;
 
+  try {
+    const userCalendar = await fetchUserProfileCalendar(username);
+    res.json(userCalendar);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
 export default router;
