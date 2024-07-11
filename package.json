@@ -6,7 +6,8 @@
 	"description": "",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "nodemon src/index.ts"
+		"dev": "nodemon src/index.ts",
+		"build": "tsc"
 	},
 	"keywords": [],
 	"license": "ISC",
