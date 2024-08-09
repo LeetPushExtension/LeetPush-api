@@ -23,6 +23,6 @@ app.get('/', (req, res) => {
   })
 })
 
-app.use('/api/v1', router)
+app.use('/api/v2', router)
 
 export default app

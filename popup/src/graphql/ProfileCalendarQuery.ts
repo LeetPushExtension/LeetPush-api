@@ -1,4 +1,4 @@
-export const ProfileQuery = `
+export const ProfileCalendarQuery = `
   query userProblemsSolved($username: String!) {
     allQuestionsCount {
       difficulty
