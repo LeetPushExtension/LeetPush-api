@@ -1,6 +1,6 @@
 import { format, fromUnixTime } from 'date-fns'
 
-import { Submission } from '../popup/src/types/profileCalendar.interface'
+import { Submission } from './types'
 
 /**
  * Format a Unix timestamp to a date string

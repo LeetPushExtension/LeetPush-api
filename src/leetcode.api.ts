@@ -2,7 +2,8 @@ import axios from 'axios'
 
 import {
   ProfileCalendar,
-  ProfileCalendarI,
+  ProfileData,
+  ProfileDataI,
   DailyProblem,
   DailyProblemI,
 } from './types'
@@ -12,10 +13,6 @@ import {
   ProfileQuery,
 } from './queries'
 import { createFullSubmissionArray } from './utils'
-import {
-  ProfileData,
-  ProfileDataI,
-} from '../popup/src/types/profileData.interface'
 
 /**
  * fetchDailyProblem - Fetches the daily problem from LeetCode.
