@@ -18,24 +18,19 @@ export const DailyProblemQuery = `
       }
     }
   }
-`;
+`
 
 export const ProfileCalendarQuery = `
-  query userProblemsSolved($username: String!) {
-    allQuestionsCount {
-      difficulty
-      count
-    }
+  query userProfileCalendar($username: String!, $year: Int) {
     matchedUser(username: $username) {
-      submitStatsGlobal {
-        acSubmissionNum {
-          difficulty
-          count
-        }
+      userCalendar(year: $year) {
+        streak
+        totalActiveDays
+        submissionCalendar
       }
     }
   }
-`;
+`
 
 export const ProfileQuery = `
   query userProblemsSolved($username: String!) {

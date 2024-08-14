@@ -48,9 +48,7 @@ router.get('/:userId', async (req, res) => {
 
   try {
     const data = await fetchProfileData(userId)
-    if (!data) {
-      return res.status(500).json({ error: 'Failed to fetch user profile data' })
-    }
+    if (!data) return res.status(404).json({ error: 'User not found' })
 
     return res.status(200).json({ data })
   } catch (e) {
@@ -70,6 +68,8 @@ router.get('/userProfileCalendar/:username', async (req, res) => {
 
   try {
     const userCalendar = await fetchUserProfileCalendar(username)
+    if (!userCalendar) return res.status(404).json({ error: 'User not found' })
+
     res.json(userCalendar)
   } catch (error: any) {
     res.status(500).json({ error: error.message })

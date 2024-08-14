@@ -71,12 +71,12 @@ export async function fetchDailyProblem(): Promise<DailyProblem> {
  * @param {string} username - The user's LeetCode username.
  * @returns {Promise<ProfileCalendar>} - The user's profile calendar.
  **/
-export async function fetchUserProfileCalendar(username: string): Promise<ProfileCalendar> {
+export async function fetchUserProfileCalendar(username: string): Promise<ProfileCalendar | null> {
   try {
-    const { data } = await axios.post<ProfileCalendarI>(
+    const { data } = await axios.post(
       'https://leetcode.com/graphql',
       {
-        variables: { username },
+        variables: { username, year: new Date().getFullYear() },
         query: ProfileCalendarQuery,
       },
       {
@@ -86,9 +86,7 @@ export async function fetchUserProfileCalendar(username: string): Promise<Profil
       },
     )
 
-    if (data.data.matchedUser === null) {
-      throw new Error(`User not found: ${username}`)
-    }
+    if (data.data.matchedUser === null) return null
 
     const { streak, totalActiveDays, submissionCalendar } =
       data.data.matchedUser.userCalendar
@@ -133,7 +131,7 @@ export async function fetchUserProfileCalendar(username: string): Promise<Profil
  * @param {string} username - The user's LeetCode username.
  * @returns {Promise<ProfileData>} - The user's profile data.
  **/
-export async function fetchProfileData(username: string): Promise<ProfileData> {
+export async function fetchProfileData(username: string): Promise<ProfileData | null> {
   try {
     const { data } = await axios.post<ProfileDataI>(
       'https://leetcode.com/graphql',
@@ -148,9 +146,7 @@ export async function fetchProfileData(username: string): Promise<ProfileData> {
       },
     )
 
-    if (data.data.matchedUser === null) {
-      throw new Error(`User not found: ${username}`)
-    }
+    if (data.data.matchedUser === null) return null
 
     return {
       allQuestionsCount: data.data.allQuestionsCount,

@@ -12,14 +12,13 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/', (req, res) => {
+app.get('/', (_, res) => {
   res.status(200)
   res.json({
     message: 'Welcome to LeetPush API',
-    totalSolvedProblems: '/api/v1/:userId',
-    dailyProblem: '/api/v1/daily',
-    last20Submissions: '/api/v1/submissions/:userId',
-    profileCalendar : '/api/v1/userProfileCalendar/:username/:year'
+    totalSolvedProblems: '/api/v2/:userId',
+    dailyProblem: '/api/v2/daily',
+    profileCalendar: '/api/v2/userProfileCalendar/:username/',
   })
 })
 
